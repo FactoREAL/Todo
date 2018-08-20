@@ -18,16 +18,20 @@ class AddTask extends Component {
 
 	handlerSubmit() {
 		if (this.props.currentGroup && this.state.value) {
-			this.props.addTask({id: this.props.nextTaskId, group: this.props.currentGroup, title: this.state.value, done: false, edit: false});
+			this.props.addTask({id: this.props.nextTaskId, group: this.props.currentGroup, title: this.state.value});
 			this.props.incTaskId();
 			this.setState({value: ''});
 		}
 	}
 
+	handlerPress = e => {
+		if (e.key === 'Enter') this.handlerSubmit();
+	}
+
 	render() {
 		return(
 			<div className="form-inline bg-light p-2 mx-auto row">
-				<input type="text" className="form-control col-10" value={this.state.value} onChange={this.handlerChange}/>
+				<input type="text" className="form-control col-10" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>
 				<div className="col-2 text-center">
 					<button className="btn btn-sm btn-primary form-control" onClick={this.handlerSubmit}>Добавить</button>
 				</div>

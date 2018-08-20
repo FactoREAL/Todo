@@ -24,10 +24,14 @@ class AddGroup extends Component {
 		}
 	}
 
+	handlerPress = e => {
+		if (e.key === 'Enter') this.handlerSubmit();
+	}
+
 	render() {
 		return(
 			<div className="form-inline bg-light p-2 mx-auto row">
-				<input type="text" className="form-control col-8" value={this.state.value} onChange={this.handlerChange}/>
+				<input type="text" className="form-control col-8" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>
 				<div className="col-4 text-center">
 					<button className="btn btn-sm btn-primary form-control" onClick={this.handlerSubmit}>Добавить</button>
 				</div>

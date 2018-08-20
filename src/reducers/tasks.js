@@ -4,21 +4,36 @@ const initState = [
 	{id: 2, group: 'Личное', title: 'Разобраться с Redux', done: false, edit: false}
 ];
 
+function task(state = {}, action) {
+	switch(action.type) {
+		case "ADD_TASK":
+			return {
+				id: action.id,
+				group: action.group,
+				title: action.title,
+				done: false,
+				edit: false
+			};
+		case "TASK_TOGGLE":
+			if (state.id !== action.id) return state;
+			return {
+				...state,
+				done: !state.done
+			}
+		default:
+			return state;
+	}
+}
+
 function tasks(state = initState, action) {
 	let newTasks;
 	switch(action.type) {
 		case "ADD_TASK":
-			return [...state, action.payload]
+			return [...state, task(null, action)];
 		case "TASK_TOGGLE":
-			newTasks = state.slice();
-			newTasks.map(task => {
-				if (task.id === action.payload) task.done = true;
-				return true;
-			});
-			return newTasks;
+			return state.map(s => task(s, action));
 		case "TASK_DELETE":
-			newTasks = state.filter(task => task.id !== action.payload);
-			return newTasks;
+			return state.filter(task => task.id !== action.payload);
 		case "TASK_EDIT":
 			newTasks = state.slice();
 			newTasks.map(task => {

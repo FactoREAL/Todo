@@ -6,7 +6,7 @@ class Task extends Component { // {task, toggleTask, handlerEdit, deleteTask}
 	componentWillReceiveProps(nextProps) {
 		this.forceUpdate(); // не работает
 	}
-
+ 
 	render() {
 		let {task, toggleTask, editTask, deleteTask} = this.props;
 		let done = task.done ? "fa fa-check-circle" : "fa fa-circle-thin";

@@ -1,14 +1,14 @@
 export function addTask(data) {
 	return {
 		type: "ADD_TASK",
-		payload: data
+		...data
 	}
 }
 
 export function toggleTask(data) {
 	return {
 		type: "TASK_TOGGLE",
-		payload: data
+		id: data
 	};
 }
 
