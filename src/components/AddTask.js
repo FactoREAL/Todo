@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addTask, incTaskId } from '../actions/task';
 
 class AddTask extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			value: '',
-			group: props.currentGroup
+			value: ''
 		};
 		this.handlerChange = this.handlerChange.bind(this);
 		this.handlerSubmit = this.handlerSubmit.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.currentGroup !== this.state.group) this.setState({group: nextProps.currentGroup});
 	}
 
 	handlerChange(e) {
 		this.setState({value: e.target.value});
 	}
 
-	handlerSubmit(group, title) {
-		if (group && title) {
-			this.props.handlerSubmit(group, title);
+	handlerSubmit() {
+		if (this.props.currentGroup && this.state.value) {
+			this.props.addTask({id: this.props.nextTaskId, group: this.props.currentGroup, title: this.state.value, done: false, edit: false});
+			this.props.incTaskId();
 			this.setState({value: ''});
 		}
 	}
@@ -31,11 +29,25 @@ class AddTask extends Component {
 			<div className="form-inline bg-light p-2 mx-auto row">
 				<input type="text" className="form-control col-10" value={this.state.value} onChange={this.handlerChange}/>
 				<div className="col-2 text-center">
-					<button className="btn btn-sm btn-primary form-control" onClick={() => {this.handlerSubmit(this.state.group, this.state.value)}}>Добавить</button>
+					<button className="btn btn-sm btn-primary form-control" onClick={this.handlerSubmit}>Добавить</button>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default AddTask;
+function mapStateToProps(state) {
+	return {
+		currentGroup: state.currentGroup,
+		nextTaskId: state.nextTaskId
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		addTask: data => dispatch(addTask(data)),
+		incTaskId: () => dispatch(incTaskId())
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask);

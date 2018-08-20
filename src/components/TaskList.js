@@ -1,17 +1,19 @@
 import React from 'react';
-import AddTask from './AddTask'
-import Task from './Task'
-import EditTask from './EditTask'
+import AddTask from './AddTask';
+import Task from './Task';
+import EditTask from './EditTask';
+import { connect } from 'react-redux';
 
-function TaskList({tasks, currentGroup, handlerNewTask, handlerTaskToggle, handlerTaskDelete, handlerTaskEdit, handlerEditSave, handlerEditCancel}) {
-	let form = (currentGroup) ? <AddTask currentGroup={currentGroup} handlerSubmit={handlerNewTask}/> : null;
+function TaskList({tasks, currentGroup}) {
+	let form = (currentGroup) ? <AddTask /> : null;
+	let currentTasks = tasks.filter(task => task.group === currentGroup);
 	return(
 		<div className="col-8">
 			<h5 className="text-center">Задачи</h5>
 			<ul className="list-group list-group-flush mb-3">
-				{tasks.map(task => {
-					if (task.edit) return <EditTask task={task} handlerSave={handlerEditSave} handlerCancel={handlerEditCancel}/>
-					return <Task task={task} handlerClick={handlerTaskToggle} handlerEdit={handlerTaskEdit} handlerDelete={handlerTaskDelete}/>;
+				{currentTasks.map(task => {
+					if (task.edit) return <EditTask task={task} />
+					return <Task task={task} />;
 				})}
 			</ul>
 			{form}
@@ -19,4 +21,11 @@ function TaskList({tasks, currentGroup, handlerNewTask, handlerTaskToggle, handl
 	);
 }
 
-export default TaskList;
+function mapStateToProps(state) {
+	return {
+		tasks: state.tasks,
+		currentGroup: state.currentGroup
+	};
+}
+
+export default connect(mapStateToProps)(TaskList);
