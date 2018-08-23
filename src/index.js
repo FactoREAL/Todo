@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css'; 
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import GroupList from './components/GroupList';
-import TaskList from './components/TaskList';
+import GroupListContainer from './containers/GroupListContainer';
+import TaskListContainer from './containers/TaskListContainer';
 import allReducers from './reducers/index';
 import { Provider } from 'react-redux'; 
 
@@ -13,17 +13,15 @@ const store = createStore(allReducers);
 
 store.subscribe(() => console.log(store.getState()));
 
-class App extends Component {
-	render() {
-		return(
-			<div className="container">
-				<div className='row'>
-					<GroupList />
-					<TaskList />	
-				</div>
+function App() {
+	return(
+		<div className="container">
+			<div className='row'>
+				<GroupListContainer />
+				<TaskListContainer />	
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 ReactDOM.render(<Provider store={store}>

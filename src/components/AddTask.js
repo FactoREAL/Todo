@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addTask, incTaskId } from '../actions/task';
 
 class AddTask extends Component {
 	constructor(props) {
@@ -8,18 +6,17 @@ class AddTask extends Component {
 		this.state = {
 			value: ''
 		};
-		this.handlerChange = this.handlerChange.bind(this);
-		this.handlerSubmit = this.handlerSubmit.bind(this);
 	}
 
-	handlerChange(e) {
+	handlerChange = e => {
 		this.setState({value: e.target.value});
 	}
 
-	handlerSubmit() {
-		if (this.props.currentGroup && this.state.value) {
-			this.props.addTask({id: this.props.nextTaskId, group: this.props.currentGroup, title: this.state.value});
-			this.props.incTaskId();
+	handlerSubmit = () => {
+		let {currentGroup, nextTaskId, addTask, incTaskId} = this.props;
+		if (currentGroup && this.state.value) {
+			addTask({id: nextTaskId, group: currentGroup, title: this.state.value});
+			incTaskId();
 			this.setState({value: ''});
 		}
 	}
@@ -40,18 +37,4 @@ class AddTask extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		currentGroup: state.currentGroup,
-		nextTaskId: state.nextTaskId
-	};
-}
-
-function mapDispatchToProps(dispatch) {
-	return {
-		addTask: data => dispatch(addTask(data)),
-		incTaskId: () => dispatch(incTaskId())
-	};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
+export default AddTask;

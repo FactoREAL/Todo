@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { editSave, editCancel } from '../actions/task';
 
 class EditTask extends Component {
 	constructor(props) {
@@ -9,10 +7,9 @@ class EditTask extends Component {
 			value: this.props.task.title,
 			taskId: this.props.task.id
 		};
-		this.handlerChange = this.handlerChange.bind(this);
 	}
 
-	handlerChange(e) {
+	handlerChange = e => {
 		this.setState({
 			value: e.target.value
 		});
@@ -22,19 +19,22 @@ class EditTask extends Component {
 		if (this.state.value) this.props.editSave({id: this.state.taskId, title: this.state.value});
 	}
 
+	handlerCancel = () => {
+		this.props.editCancel(this.state.taskId);
+	}
+
 	handlerPress = (e) => {
 		if (e.key === 'Enter') this.handlerSave();
 	}
 
 	render() {
-		let {task, editCancel} = this.props;
 		return (
-			<li key={task.id} className="list-group-item form-inline">
+			<li key={this.props.task.id} className="list-group-item form-inline">
 				<div className="form-group row">
 					<input className="form-control col-8" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>
 					<div className="col-4 text-center">
 						<button className="btn btn-primary btn-sm form-control mr-2" onClick={this.handlerSave}>Сохранить</button>
-						<button className="btn btn-outline-secondary btn-sm form-control" onClick={() => editCancel(task.id)}>отмена</button>
+						<button className="btn btn-outline-secondary btn-sm form-control" onClick={this.handlerCancel}>отмена</button>
 					</div>
 				</div>
 			</li>
@@ -43,11 +43,4 @@ class EditTask extends Component {
 	
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		editSave: data => dispatch(editSave(data)),
-		editCancel: data => dispatch(editCancel(data))
-	};
-}
-
-export default connect(null, mapDispatchToProps)(EditTask);
+export default EditTask;

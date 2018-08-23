@@ -1,19 +1,18 @@
 import React from 'react';
-import AddTask from './AddTask';
+import AddTaskContainer from '../containers/AddTaskContainer';
 import Task from './Task';
 import EditTask from './EditTask';
-import { connect } from 'react-redux';
 
-function TaskList({tasks, currentGroup}) {
-	let form = (currentGroup) ? <AddTask /> : null;
+function TaskList({tasks, currentGroup, toggleTask, editTask, deleteTask, editSave, editCancel}) {
+	let form = (currentGroup) ? <AddTaskContainer /> : null;
 	let currentTasks = tasks.filter(task => task.group === currentGroup);
-	return(
+	return (
 		<div className="col-8">
 			<h5 className="text-center">Задачи</h5>
 			<ul className="list-group list-group-flush mb-3">
 				{currentTasks.map(task => {
-					if (task.edit) return <EditTask task={task} />
-					return <Task task={task} />;
+					if (task.edit) return <EditTask task={task} editSave={editSave} editCancel={editCancel} />
+					return <Task task={task} toggleTask={toggleTask} deleteTask={deleteTask} editTask={editTask} />;
 				})}
 			</ul>
 			{form}
@@ -21,11 +20,4 @@ function TaskList({tasks, currentGroup}) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		tasks: state.tasks,
-		currentGroup: state.currentGroup
-	};
-}
-
-export default connect(mapStateToProps)(TaskList);
+export default TaskList;

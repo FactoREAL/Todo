@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addGroup, incGroupId } from '../actions/group';
 
 class AddGroup extends Component {
 	constructor(props) {
@@ -8,18 +6,17 @@ class AddGroup extends Component {
 		this.state = {
 			value: ''
 		};
-		this.handlerChange = this.handlerChange.bind(this);
-		this.handlerSubmit = this.handlerSubmit.bind(this);
 	}
 
-	handlerChange(e) {
+	handlerChange = e => {
 		this.setState({value: e.target.value});
 	}
 
-	handlerSubmit() {
+	handlerSubmit = () => {
+		let {nextGroupId, addGroup, incGroupId} = this.props;
 		if (this.state.value) {
-			this.props.addGroup({id: this.props.nextGroupId, title: this.state.value});
-			this.props.incGroupId();
+			addGroup({id: nextGroupId, title: this.state.value});
+			incGroupId();
 			this.setState({value: ''});
 		}
 	}
@@ -40,17 +37,4 @@ class AddGroup extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		nextGroupId: state.nextGroupId
-	};
-}
-
-function mapDispatchToProps(dispatch) {
-	return {
-		addGroup: data => dispatch(addGroup(data)),
-		incGroupId: () => dispatch(incGroupId())
-	};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddGroup);
+export default AddGroup;
