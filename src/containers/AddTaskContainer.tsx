@@ -1,27 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { addTask, incTaskId } from '../actions/task';
 import AddTask from '../components/AddTask';
+import {IAddTaskProps, IRootState} from "../types";
+import {Dispatch} from "redux";
 
-function AddTaskContainer(props) {
-	return <AddTask 
-		currentGroup={props.currentGroup} 
-		nextTaskId={props.nextTaskId} 
-		addTask={props.addTask} 
-		incTaskId={props.incTaskId} 
-	/>;
+function AddTaskContainer(props: IAddTaskProps) {
+	return <AddTask {...props} />;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IRootState) {
 	return {
 		currentGroup: state.currentGroup,
 		nextTaskId: state.nextTaskId
 	};
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
 	return {
-		addTask: data => dispatch(addTask(data)),
+		addTask: (data: any) => dispatch(addTask(data)),
 		incTaskId: () => dispatch(incTaskId())
 	};
 }

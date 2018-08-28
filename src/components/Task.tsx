@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { ITaskProps } from "../types";
 
-class Task extends Component {
-	handlerDelete = () => {
+class Task extends React.Component<ITaskProps> {
+	private handlerDelete = () => {
 		this.props.deleteTask(this.props.task.id);
-	}
+	};
 
-	handlerEdit = () => {
+	private handlerEdit = () => {
 		this.props.editTask(this.props.task.id);
-	}
+	};
 
-	handlerToggle = () => {
+	private handlerToggle = () => {
 		this.props.toggleTask(this.props.task.id);
-	}
+	};
 
-	render() {
-		let {task} = this.props;
-		let done = task.done ? "fa fa-check-circle" : "fa fa-circle-thin";
-		let doneCss = task.done ? "btn btn-sm btn-outline-success mr-2" : "btn btn-sm btn-outline-secondary mr-2";
+	public render() {
+		const {task} = this.props;
+		const done = task.done ? "fa fa-check-circle" : "fa fa-circle-thin";
+		const doneCss = task.done ? "btn btn-sm btn-outline-success mr-2" : "btn btn-sm btn-outline-secondary mr-2";
 		return (
 			<li key={task.id} className="list-group-item">
 				<button className={doneCss} onClick={this.handlerToggle}>

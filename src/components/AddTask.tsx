@@ -1,31 +1,36 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import {IAddTaskProps} from "../types";
 
-class AddTask extends Component {
-	constructor(props) {
+interface IState {
+	value: string
+}
+
+class AddTask extends React.Component<IAddTaskProps, IState> {
+	constructor(props: IAddTaskProps) {
 		super(props);
 		this.state = {
 			value: ''
 		};
 	}
 
-	handlerChange = e => {
-		this.setState({value: e.target.value});
-	}
+	private handlerChange = (e: React.FormEvent<HTMLInputElement>) => {
+		this.setState({value: e.currentTarget.value});
+	};
 
-	handlerSubmit = () => {
-		let {currentGroup, nextTaskId, addTask, incTaskId} = this.props;
+	private handlerSubmit = () => {
+		const {currentGroup, nextTaskId, addTask, incTaskId} = this.props;
 		if (currentGroup && this.state.value) {
 			addTask({id: nextTaskId, group: currentGroup, title: this.state.value});
 			incTaskId();
 			this.setState({value: ''});
 		}
-	}
+	};
 
-	handlerPress = e => {
-		if (e.key === 'Enter') this.handlerSubmit();
-	}
+	private handlerPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') { this.handlerSubmit(); }
+	};
 
-	render() {
+	public render() {
 		return(
 			<div className="form-inline bg-light p-2 mx-auto row">
 				<input type="text" className="form-control col-10" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>

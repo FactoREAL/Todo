@@ -1,4 +1,4 @@
-import { ADD_TASK, TASK_TOGGLE, TASK_DELETE, TASK_EDIT, TASK_EDIT_SAVE, TASK_EDIT_CANCEL } from '../const/actions';
+import { taskActionType } from '../const/actionTypes';
 
 const initState = [
 	{id: 0, group: 'Работа', title: 'Создавать видимость работы', done: false, edit: false},
@@ -8,7 +8,7 @@ const initState = [
 
 function task(state = {}, action) {
 	switch(action.type) {
-		case ADD_TASK:
+		case taskActionType.ADD_TASK:
 			return {
 				id: action.id,
 				group: action.group,
@@ -16,12 +16,14 @@ function task(state = {}, action) {
 				done: false,
 				edit: false
 			};
-		case TASK_TOGGLE:
-			if (state.id !== action.id) return state;
+		case taskActionType.TASK_TOGGLE:
+			if (state.id !== action.id) {
+				return state;
+            }
 			return {
 				...state,
 				done: !state.done
-			}
+			};
 		default:
 			return state;
 	}
@@ -30,33 +32,37 @@ function task(state = {}, action) {
 function tasks(state = initState, action) {
 	let newTasks;
 	switch(action.type) {
-		case ADD_TASK:
+		case taskActionType.ADD_TASK:
 			return [...state, task(null, action)];
-		case TASK_TOGGLE:
+		case taskActionType.TASK_TOGGLE:
 			return state.map(s => task(s, action));
-		case TASK_DELETE:
-			return state.filter(task => task.id !== action.id);
-		case TASK_EDIT:
+		case taskActionType.TASK_DELETE:
+			return state.filter(t => t.id !== action.id);
+		case taskActionType.TASK_EDIT:
 			newTasks = state.slice();
-			newTasks.map(task => {
-				if (task.id === action.id) task.edit = true;
+			newTasks.map(t => {
+				if (t.id === action.id) {
+					t.edit = true;
+                }
 				return true;
 			});
 			return newTasks;
-		case TASK_EDIT_SAVE:
+		case taskActionType.TASK_EDIT_SAVE:
 			newTasks = state.slice();
-			newTasks.map(task => {
-				if (task.id === action.payload.id) {
-					task.edit = false;
-					task.title = action.payload.title;
+			newTasks.map(t => {
+				if (t.id === action.payload.id) {
+					t.edit = false;
+					t.title = action.payload.title;
 				}
 				return true;
 			});
 			return newTasks;
-		case TASK_EDIT_CANCEL:
+		case taskActionType.TASK_EDIT_CANCEL:
 			newTasks = state.slice();
-			newTasks.map(task => {
-				if (task.id === action.payload) task.edit = false;
+			newTasks.map(t => {
+				if (t.id === action.payload) {
+					t.edit = false;
+                }
 				return true;
 			});
 			return newTasks;
