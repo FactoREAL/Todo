@@ -13,11 +13,11 @@ class AddGroup extends React.Component<IAddGroupProps, IState> {
 		};
 	}
 
-	private handlerChange = (e: React.FormEvent<HTMLInputElement>) => {
+	private handleChange = (e: React.FormEvent<HTMLInputElement>) => {
 		this.setState({value: e.currentTarget.value});
 	};
 
-	private handlerSubmit = () => {
+	private handleSubmit = () => {
 		const {nextGroupId, onAddGroup, onIncGroupId} = this.props;
 		if (this.state.value) {
             onAddGroup({id: nextGroupId, title: this.state.value});
@@ -26,16 +26,21 @@ class AddGroup extends React.Component<IAddGroupProps, IState> {
 		}
 	};
 
-	private handlerPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter') { this.handlerSubmit(); }
+	private handlePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') { this.handleSubmit(); }
 	};
 
 	public render() {
 		return(
 			<div className="form-inline bg-light p-2 mx-auto row">
-				<input type="text" className="form-control col-8" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>
+				<input type="text"
+					   className="form-control col-8"
+					   value={this.state.value}
+					   onKeyPress={this.handlePress}
+					   onChange={this.handleChange}
+				/>
 				<div className="col-4 text-center">
-					<button className="btn btn-sm btn-primary form-control" onClick={this.handlerSubmit}>Добавить</button>
+					<button className="btn btn-sm btn-primary form-control" onClick={this.handleSubmit}>Добавить</button>
 				</div>
 			</div>
 		);

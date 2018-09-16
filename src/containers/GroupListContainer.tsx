@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 import GroupList from '../components/GroupList';
 import { setGroup } from '../actions/group';
 import { IRootState, IGroupListProps } from "../types";
@@ -18,7 +18,7 @@ function mapStateToProps(state: IRootState) {
 
 function mapDispatchToProps(dispatch: Dispatch) {
 	return {
-        onSetGroup: (data: string) => dispatch(setGroup(data))
+        onSetGroup: bindActionCreators(setGroup, dispatch)
 	};
 }
 

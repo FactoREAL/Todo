@@ -15,25 +15,25 @@ class EditTask extends React.Component<IEditTaskProps, IState> {
 		};
 	}
 
-	private handlerChange = (e: React.FormEvent<HTMLInputElement>) => {
+	private handleChange = (e: React.FormEvent<HTMLInputElement>) => {
 		this.setState({
 			value: e.currentTarget.value
 		});
 	};
 
-	private handlerSave = () => {
+	private handleSave = () => {
 		if (this.state.value) {
 			this.props.editSave({id: this.state.taskId, title: this.state.value});
         }
 	};
 
-	private handlerCancel = () => {
+	private handleCancel = () => {
 		this.props.editCancel(this.state.taskId);
 	};
 
-	private handlerPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+	private handlePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
-			this.handlerSave();
+			this.handleSave();
         }
 	};
 
@@ -41,10 +41,14 @@ class EditTask extends React.Component<IEditTaskProps, IState> {
 		return (
 			<li key={this.props.task.id} className="list-group-item form-inline">
 				<div className="form-group row">
-					<input className="form-control col-8" value={this.state.value} onKeyPress={this.handlerPress} onChange={this.handlerChange}/>
+					<input className="form-control col-8"
+						   value={this.state.value}
+						   onKeyPress={this.handlePress}
+						   onChange={this.handleChange}
+					/>
 					<div className="col-4 text-center">
-						<button className="btn btn-primary btn-sm form-control mr-2" onClick={this.handlerSave}>Сохранить</button>
-						<button className="btn btn-outline-secondary btn-sm form-control" onClick={this.handlerCancel}>отмена</button>
+						<button className="btn btn-primary btn-sm form-control mr-2" onClick={this.handleSave}>Сохранить</button>
+						<button className="btn btn-outline-secondary btn-sm form-control" onClick={this.handleCancel}>отмена</button>
 					</div>
 				</div>
 			</li>

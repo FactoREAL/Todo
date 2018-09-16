@@ -1,58 +1,66 @@
 import { taskActionType } from '../const/actionTypes';
-import {IAction, IAddTask, IChangeTask} from "../types";
+import {IAction, IEditTask, INewTask} from "../types";
 
-interface IAddProps {
-	id: number,
-	group: string,
-	title: string
+interface IChangeTask {
+	id: number
 }
 
-export function addTask(data: IAddProps): IAddTask {
+export function addTask(task: INewTask): IAction<INewTask> {
 	return {
-        group: data.group,
-        id: data.id,
-        title: data.title,
+		payload: {
+            group: task.group,
+            id: task.id,
+            title: task.title,
+		},
         type: taskActionType.ADD_TASK
 	}
 }
 
-export function toggleTask(data: number): IChangeTask {
+export function toggleTask(id: number): IAction<IChangeTask> {
 	return {
-        id: data,
+        payload: {
+        	id
+        },
         type: taskActionType.TASK_TOGGLE
 	};
 }
 
-export function editTask(data: number): IChangeTask {
+export function editTask(id: number): IAction<IChangeTask> {
 	return {
-        id: data,
+        payload: {
+        	id
+        },
         type: taskActionType.TASK_EDIT
 	};
 }
 
-export function deleteTask(data: number): IChangeTask {
+export function deleteTask(id: number): IAction<IChangeTask> {
 	return {
-        id: data,
+        payload: {
+        	id
+        },
         type: taskActionType.TASK_DELETE
 	};
 }
 
-export function incTaskId(): IAction {
+export function incTaskId(): IAction<null> {
 	return {
 		type: taskActionType.INC_TASK_ID
 	};
 }
 
-export function editSave(data: any) {
+export function editSave(task: IEditTask): IAction<IEditTask> {
 	return {
-        payload: data,
+        payload: task,
         type: taskActionType.TASK_EDIT_SAVE
 	};
 }
 
-export function editCancel(data: any) {
+export function editCancel(id: number): IAction<IChangeTask> {
 	return {
-        payload: data,
+        payload: {
+        	id
+        },
         type: taskActionType.TASK_EDIT_CANCEL
 	};
 }

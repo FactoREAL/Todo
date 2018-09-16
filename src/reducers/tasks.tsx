@@ -1,4 +1,5 @@
 import { taskActionType } from '../const/actionTypes';
+import {IAction, ITask} from "../types";
 
 const initState = [
 	{id: 0, group: 'Работа', title: 'Создавать видимость работы', done: false, edit: false},
@@ -6,30 +7,30 @@ const initState = [
 	{id: 2, group: 'Личное', title: 'Разобраться с Redux', done: false, edit: false}
 ];
 
-function task(state = {}, action) {
+function task(state: ITask | null, action: IAction<any>) {
 	switch(action.type) {
 		case taskActionType.ADD_TASK:
 			return {
-				id: action.id,
-				group: action.group,
-				title: action.title,
+				id: action.payload.id,
+				group: action.payload.group,
+				title: action.payload.title,
 				done: false,
 				edit: false
 			};
 		case taskActionType.TASK_TOGGLE:
-			if (state.id !== action.id) {
+			if (state!.id !== action.payload.id) {
 				return state;
             }
 			return {
 				...state,
-				done: !state.done
+				done: !state!.done
 			};
 		default:
 			return state;
 	}
 }
 
-function tasks(state = initState, action) {
+function tasks(state:ITask[] = initState, action:IAction<any>) {
 	let newTasks;
 	switch(action.type) {
 		case taskActionType.ADD_TASK:
@@ -37,11 +38,11 @@ function tasks(state = initState, action) {
 		case taskActionType.TASK_TOGGLE:
 			return state.map(s => task(s, action));
 		case taskActionType.TASK_DELETE:
-			return state.filter(t => t.id !== action.id);
+			return state.filter(t => t.id !== action.payload.id);
 		case taskActionType.TASK_EDIT:
 			newTasks = state.slice();
 			newTasks.map(t => {
-				if (t.id === action.id) {
+				if (t.id === action.payload.id) {
 					t.edit = true;
                 }
 				return true;
@@ -60,7 +61,7 @@ function tasks(state = initState, action) {
 		case taskActionType.TASK_EDIT_CANCEL:
 			newTasks = state.slice();
 			newTasks.map(t => {
-				if (t.id === action.payload) {
+				if (t.id === action.payload.id) {
 					t.edit = false;
                 }
 				return true;

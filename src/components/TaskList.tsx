@@ -13,9 +13,18 @@ function TaskList({tasks, currentGroup, toggleTask, editTask, deleteTask, editSa
 			<ul className="list-group list-group-flush mb-3">
 				{currentTasks.map(task => {
 					if (task.edit) {
-						return <EditTask key={task.id} task={task} editSave={editSave} editCancel={editCancel} />
+						return <EditTask key={task.id}
+										 task={task}
+										 editSave={editSave}
+										 editCancel={editCancel}
+						/>
                     }
-					return <Task key={task.id} task={task} toggleTask={toggleTask} deleteTask={deleteTask} editTask={editTask} />;
+					return <Task key={task.id}
+								 task={task}
+								 toggleTask={toggleTask}
+								 deleteTask={deleteTask}
+								 editTask={editTask}
+					/>;
 				})}
 			</ul>
 			{form}

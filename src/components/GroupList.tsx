@@ -9,7 +9,11 @@ function GroupList({groups, currentGroup, onSetGroup}: IGroupListProps) {
 			<h5 className="text-center">Группы</h5>
 			<ul className="list-group mb-3">
 				{groups.map(group => {
-					return <Group key={group.id} group={group} currentGroup={currentGroup} setGroup={onSetGroup}/>;
+					return <Group key={group.id}
+								  group={group}
+								  currentGroup={currentGroup}
+								  setGroup={onSetGroup}
+					/>;
 				})}
 			</ul>
 			<AddGroupContainer />

@@ -1,28 +1,27 @@
 import { groupActionType } from '../const/actionTypes';
-import {IAction, IAddGroup, ISetGroup} from "../types";
+import {IAction, IActiveGroup, IGroup} from "../types";
 
-interface IAddProps {
-	id: number,
-	title: string
-}
-
-export function addGroup(data: IAddProps): IAddGroup {
+export function addGroup(group: IGroup): IAction<IGroup> {
 	return {
-        id: data.id,
-        title: data.title,
+		payload: {
+        	id: group.id,
+            title: group.title
+        },
         type: groupActionType.ADD_GROUP
     };
 }
 
-export function incGroupId(): IAction {
+export function incGroupId(): IAction<null> {
 	return {
 		type: groupActionType.INC_GROUP_ID
 	};
 }
 
-export function setGroup(data: string): ISetGroup {
+export function setGroup(title: string): IAction<IActiveGroup> {
 	return {
-        title: data,
+		payload: {
+			title
+        },
         type: groupActionType.SET_GROUP
 	};
 }

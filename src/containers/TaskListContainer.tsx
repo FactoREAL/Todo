@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TaskList from '../components/TaskList';
 import { toggleTask, editTask, deleteTask, editSave, editCancel } from '../actions/task';
 import {IRootState, ITaskListProps} from "../types";
-import {Dispatch} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 
 function TaskListContainer(props: ITaskListProps) {
 	return <TaskList {...props}	/>;
@@ -18,11 +18,11 @@ function mapStateToProps(state: IRootState) {
 
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
-        deleteTask: (data: number) => dispatch(deleteTask(data)),
-        editCancel: (data: number) => dispatch(editCancel(data)),
-        editSave: (data: any) => dispatch(editSave(data)),
-        editTask: (data: number) => dispatch(editTask(data)),
-        toggleTask: (data: number) => dispatch(toggleTask(data))
+        deleteTask: bindActionCreators(deleteTask, dispatch),
+        editCancel: bindActionCreators(editCancel, dispatch),
+        editSave: bindActionCreators(editSave, dispatch),
+        editTask: bindActionCreators(editTask, dispatch),
+        toggleTask: bindActionCreators(toggleTask, dispatch)
     };
 }
 

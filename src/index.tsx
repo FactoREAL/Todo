@@ -14,7 +14,7 @@ store.subscribe(() => console.log(store.getState()));
 
 function App() {
     return(
-        <div className="container">
+        <div className="container mt-2">
             <div className='row'>
                 <GroupListContainer />
                 <TaskListContainer />

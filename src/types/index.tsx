@@ -14,21 +14,25 @@ export interface IGroup {
     title: string
 }
 
+export interface IActiveGroup {
+    title: string
+}
+
 export interface IGroupProps {
     group: IGroup,
     currentGroup: string,
-    setGroup: (data: string) => void
+    setGroup: (title: string) => void
 }
 
 export interface IGroupListProps {
     groups: IGroup[],
     currentGroup: string,
-    onSetGroup: (data: string) => void
+    onSetGroup: (title: string) => void
 }
 
 export interface IAddGroupProps {
     nextGroupId: number,
-    onAddGroup: (data: any) => void,
+    onAddGroup: (group: IGroup) => void,
     onIncGroupId: () => void
 }
 
@@ -41,58 +45,49 @@ export interface ITask {
     edit: boolean
 }
 
+export interface INewTask {
+    id: number,
+    group: string,
+    title: string,
+}
+
+export interface IEditTask {
+    id: number,
+    title: string
+}
+
 export interface ITaskProps {
     task: ITask,
-    toggleTask: (data: number) => void,
-    editTask: (data: number) => void,
-    deleteTask: (data: number) => void
+    toggleTask: (id: number) => void,
+    editTask: (id: number) => void,
+    deleteTask: (id: number) => void
 }
 
 export interface ITaskListProps {
     tasks: ITask[],
     currentGroup: string,
-    toggleTask: (data: number) => void,
-    editTask: (data: number) => void,
-    deleteTask: (data: number) => void,
-    editSave: (data: any) => void,
-    editCancel: (data: number) => void
+    toggleTask: (id: number) => void,
+    editTask: (id: number) => void,
+    deleteTask: (id: number) => void,
+    editSave: (task: IEditTask) => void,
+    editCancel: (id: number) => void
 }
 
 export interface IAddTaskProps {
     currentGroup: string,
     nextTaskId: number,
-    addTask: (data: any) => void,
+    addTask: (task: INewTask) => void,
     incTaskId: () => void
 }
 
 export interface IEditTaskProps {
     task: ITask,
-    editSave: (data: any) => void,
-    editCancel: (data: number) => void
+    editSave: (task: IEditTask) => void,
+    editCancel: (id: number) => void
 }
 
 // Action
-export interface IAction {
+export interface IAction<T> {
+    payload?: T,
     type: IActionType
 }
-
-export interface IAddGroup extends IAction {
-    id: number,
-    title: string
-}
-
-export interface ISetGroup extends IAction {
-    title: string
-}
-
-export interface IAddTask extends IAction {
-    id: number,
-    group: string,
-    title: string
-}
-
-export interface IChangeTask extends IAction {
-    id: number
-}
-
-// export type IActions = IAddTask | IChangeTask;
