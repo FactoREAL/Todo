@@ -1,13 +1,13 @@
-import { groupActionType } from '../const/actionTypes';
-import {IAction} from "../types";
+import { groupActionType } from "../const/actionTypes";
+import { IAction } from "../types";
 
 function nextGroupId(state: number = 2, action: IAction<null>) {
-	switch(action.type) {
-		case groupActionType.INC_GROUP_ID:
-			return state + 1;
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case groupActionType.INC_GROUP_ID:
+      return state + 1;
+    default:
+      return state;
+  }
 }
 
 export default nextGroupId;
