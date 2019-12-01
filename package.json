@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ajv": "^6.5.3",
-    "bootstrap": "^4.1.3",
+    "ajv": "^6.10.2",
+    "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "popper": "^1.0.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
-    "react-scripts-ts": "2.17.0",
-    "redux": "^4.0.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^5.1.2",
+    "react-scripts-ts": "^4.0.8",
+    "redux": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -21,14 +21,20 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/enzyme-adapter-react-16": "^1.0.3",
-    "@types/jest": "^23.3.1",
-    "@types/node": "^10.9.1",
-    "@types/react": "^16.4.11",
-    "@types/react-dom": "^16.0.7",
-    "@types/react-redux": "^6.0.6",
-    "enzyme": "^3.5.0",
-    "enzyme-adapter-react-16": "^1.3.0",
-    "typescript": "^3.0.1"
-  }
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^23.3.14",
+    "@types/node": "^10.17.6",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-redux": "^6.0.14",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "typescript": "^3.7.2"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
