@@ -18,20 +18,36 @@ function task(state: ITask | null, action: IAction<any>) {
 				edit: false
 			};
 		case taskActionType.TASK_TOGGLE:
-			if (state!.id !== action.payload.id) {
-				return state;
-            }
+			if (state!.id !== action.payload.id) { return state; }
 			return {
 				...state,
 				done: !state!.done
 			};
+		case taskActionType.TASK_EDIT:
+			if (state!.id !== action.payload.id) { return state; }
+			return {
+				...state,
+				edit: true
+			};
+        case taskActionType.TASK_EDIT_SAVE:
+            if (state!.id !== action.payload.id) { return state; }
+            return {
+                ...state,
+                edit: false,
+				title: action.payload.title
+            };
+        case taskActionType.TASK_EDIT_CANCEL:
+            if (state!.id !== action.payload.id) { return state; }
+            return {
+                ...state,
+                edit: false
+            };
 		default:
 			return state;
 	}
 }
 
 function tasks(state:ITask[] = initState, action:IAction<any>) {
-	let newTasks;
 	switch(action.type) {
 		case taskActionType.ADD_TASK:
 			return [...state, task(null, action)];
@@ -40,33 +56,11 @@ function tasks(state:ITask[] = initState, action:IAction<any>) {
 		case taskActionType.TASK_DELETE:
 			return state.filter(t => t.id !== action.payload.id);
 		case taskActionType.TASK_EDIT:
-			newTasks = state.slice();
-			newTasks.map(t => {
-				if (t.id === action.payload.id) {
-					t.edit = true;
-                }
-				return true;
-			});
-			return newTasks;
+			return state.map(s => task(s, action));
 		case taskActionType.TASK_EDIT_SAVE:
-			newTasks = state.slice();
-			newTasks.map(t => {
-				if (t.id === action.payload.id) {
-					t.edit = false;
-					t.title = action.payload.title;
-				}
-				return true;
-			});
-			return newTasks;
+            return state.map(s => task(s, action));
 		case taskActionType.TASK_EDIT_CANCEL:
-			newTasks = state.slice();
-			newTasks.map(t => {
-				if (t.id === action.payload.id) {
-					t.edit = false;
-                }
-				return true;
-			});
-			return newTasks;
+            return state.map(s => task(s, action));
 		default:
 			return state;
 	}
