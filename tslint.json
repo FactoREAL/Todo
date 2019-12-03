@@ -7,7 +7,8 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "no-console": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "interface-over-type-literal": false
   },
   "linterOptions": {
     "exclude": [

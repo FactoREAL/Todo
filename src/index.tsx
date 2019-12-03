@@ -2,9 +2,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import GroupListContainer from "./containers/GroupListContainer";
+import GroupList from "./components/GroupList";
 import TaskListContainer from "./containers/TaskListContainer";
-import allReducers from "./reducers/index";
+import allReducers from "./reducers";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="container mt-2">
       <div className="row">
-        <GroupListContainer />
+        <GroupList/>
         <TaskListContainer />
       </div>
     </div>

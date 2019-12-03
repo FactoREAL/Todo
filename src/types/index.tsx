@@ -24,11 +24,11 @@ export interface IGroupProps {
   setGroup: (title: string) => void;
 }
 
-export interface IGroupListProps {
-  groups: IGroup[];
-  currentGroup: string;
-  onSetGroup: (title: string) => void;
-}
+// export interface IGroupListProps {
+//   groups: IGroup[];
+//   currentGroup: string;
+//   onSetGroup: (title: string) => void;
+// }
 
 export interface IAddGroupProps {
   nextGroupId: number;
