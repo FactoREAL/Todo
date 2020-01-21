@@ -4,7 +4,7 @@ import nextGroupId from "./nextGroupId";
 import currentGroup from "./currentGroup";
 import nextTaskId from "./nextTaskId";
 import tasks from "./tasks";
-import { IGroup } from "../types";
+import { IGroup } from "../models";
 
 const allReducers = combineReducers({
   currentGroup,

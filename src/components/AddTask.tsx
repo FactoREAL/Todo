@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IAddTaskProps } from "../types";
+import { IAddTaskProps } from "../data/models";
 
 interface IState {
   value: string;

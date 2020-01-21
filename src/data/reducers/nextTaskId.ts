@@ -1,5 +1,5 @@
-import { taskActionType } from "../const/actionTypes";
-import { IAction } from "../types";
+import { IAction } from "../models";
+import {taskActionType} from "../constants";
 
 function nextTaskId(state: number = 3, action: IAction<null>) {
   switch (action.type) {

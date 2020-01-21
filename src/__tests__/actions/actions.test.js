@@ -1,7 +1,6 @@
-import {addGroup, incGroupId, setGroup} from "../../actions/group";
-import {addTask, toggleTask} from "../../actions/task";
-import {groupActionType} from "../../const/actionTypes";
-import {taskActionType} from "../../const/actionTypes";
+
+import {addGroup, addTask, incGroupId, setGroup, toggleTask} from "../../data/actions";
+import {groupActionType, taskActionType} from "../../data/constants";
 
 describe('group actions', () => {
     it('addGroup()', function () {

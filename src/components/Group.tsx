@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IGroupProps } from "../types";
+import { IGroupProps } from "../data/models";
 
 class Group extends React.Component<IGroupProps> {
   private handleClick = () => {

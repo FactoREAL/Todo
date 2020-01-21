@@ -2,8 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import AddGroup from "../components/AddGroup";
-import { addGroup, incGroupId } from "../actions/group";
-import { IAddGroupProps, IRootState } from "../types";
+import { IAddGroupProps, IRootState } from "../data/models";
+import { addGroup, incGroupId } from "../data/actions";
 
 function AddGroupContainer({
   nextGroupId,

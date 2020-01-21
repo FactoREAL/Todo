@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { addTask, incTaskId } from "../actions/task";
 import AddTask from "../components/AddTask";
-import { IAddTaskProps, IRootState } from "../types";
+import { IAddTaskProps, IRootState } from "../data/models";
 import { bindActionCreators, Dispatch } from "redux";
+import {addTask, incTaskId} from "../data/actions";
 
 function AddTaskContainer(props: IAddTaskProps) {
   return <AddTask {...props} />;

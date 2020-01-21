@@ -2,7 +2,7 @@ import * as React from "react";
 import AddTaskContainer from "../containers/AddTaskContainer";
 import Task from "./Task";
 import EditTask from "./EditTask";
-import { ITaskListProps } from "../types";
+import { ITaskListProps } from "../data/models";
 
 function TaskList({
   tasks,

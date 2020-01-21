@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IEditTaskProps } from "../types";
+import { IEditTaskProps } from "../data/models";
 
 interface IState {
   taskId: number;

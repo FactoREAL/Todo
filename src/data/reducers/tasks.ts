@@ -1,5 +1,5 @@
-import { taskActionType } from "../const/actionTypes";
-import { IAction, ITask } from "../types";
+import { IAction, ITask } from "../models";
+import {taskActionType} from "../constants";
 
 const initState = [
   {

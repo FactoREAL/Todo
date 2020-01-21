@@ -1,5 +1,5 @@
-import currentGroup from '../../reducers/currentGroup';
-import {groupActionType} from "../../const/actionTypes";
+import currentGroup from '../../data/reducers/currentGroup';
+import {groupActionType} from "../../data/constants";
 
 describe('reducers/currentGroup', () => {
     it('выбор группы', function () {

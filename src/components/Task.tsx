@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ITaskProps } from "../types";
+import { ITaskProps } from "../data/models";
 
 class Task extends React.Component<ITaskProps> {
   private handleDelete = () => {

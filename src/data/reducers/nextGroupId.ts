@@ -1,5 +1,5 @@
-import { groupActionType } from "../const/actionTypes";
-import { IAction } from "../types";
+import { IAction } from "../models";
+import {groupActionType} from "../constants";
 
 function nextGroupId(state: number = 2, action: IAction<null>) {
   switch (action.type) {

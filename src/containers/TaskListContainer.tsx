@@ -1,15 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import TaskList from "../components/TaskList";
-import {
-  toggleTask,
-  editTask,
-  deleteTask,
-  editSave,
-  editCancel
-} from "../actions/task";
-import { IRootState, ITaskListProps } from "../types";
+import { IRootState, ITaskListProps } from "../data/models";
 import { bindActionCreators, Dispatch } from "redux";
+import {deleteTask, editCancel, editSave, editTask, toggleTask} from "../data/actions";
 
 function TaskListContainer(props: ITaskListProps) {
   return <TaskList {...props} />;

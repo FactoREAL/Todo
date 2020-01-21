@@ -1,5 +1,5 @@
-import { groupActionType } from "../const/actionTypes";
-import { IAction, IActiveGroup } from "../types";
+import { IAction, IActiveGroup } from "../models";
+import {groupActionType} from "../constants";
 
 function currentGroup(state: string = "", action: IAction<IActiveGroup>) {
   switch (action.type) {

@@ -1,5 +1,5 @@
-import { groupActionType } from "../const/actionTypes";
-import { IAction, IGroup } from "../types";
+import { IAction, IGroup } from "../models";
+import {groupActionType} from "../constants";
 
 const initState = [
   { id: 0, title: "Работа" },

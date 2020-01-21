@@ -1,4 +1,3 @@
-// task
 export enum taskActionType {
   ADD_TASK = "ADD_TASK",
   TASK_TOGGLE = "TASK_TOGGLE",
@@ -9,7 +8,6 @@ export enum taskActionType {
   TASK_EDIT_CANCEL = "TASK_EDIT_CANCEL"
 }
 
-// group
 export enum groupActionType {
   ADD_GROUP = "ADD_GROUP",
   INC_GROUP_ID = "INC_GROUP_ID",

@@ -1,5 +1,5 @@
-import groups from '../../reducers/groups';
-import { groupActionType} from "../../const/actionTypes";
+import groups from '../../data/reducers/groups';
+import {groupActionType} from "../../data/constants";
 
 const state = [];
 

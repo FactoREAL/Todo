@@ -3,9 +3,9 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AddGroupContainer from "../containers/AddGroupContainer";
-import { GlobalState } from "../reducers";
-import { setGroup as setGroupAction } from "../actions/group";
+import { GlobalState } from "../data/reducers";
 import Group from "./Group";
+import {setGroup as setGroupAction} from "../data/actions";
 
 const GroupList: React.FC = () => {
   const dispatch = useDispatch();

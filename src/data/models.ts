@@ -1,4 +1,4 @@
-import { IActionType } from "../const/actionTypes";
+import {IActionType} from "./constants";
 
 export interface IRootState {
   currentGroup: string;
