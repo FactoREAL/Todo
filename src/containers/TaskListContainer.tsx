@@ -1,29 +1,36 @@
 import * as React from "react";
 import { connect } from "react-redux";
+
 import TaskList from "../components/TaskList";
-import { IRootState, ITaskListProps } from "../data/models";
-import { bindActionCreators, Dispatch } from "redux";
-import {deleteTask, editCancel, editSave, editTask, toggleTask} from "../data/actions";
+import { IRootState } from "../data/models";
+import {
+  deleteTask,
+  editCancel,
+  editSave,
+  editTask,
+  toggleTask
+} from "../data/actions";
 
-function TaskListContainer(props: ITaskListProps) {
-  return <TaskList {...props} />;
-}
+type Props = InjectStateProps & InjectDispatchProps;
 
-function mapStateToProps(state: IRootState) {
-  return {
-    currentGroup: state.currentGroup,
-    tasks: state.tasks
-  };
-}
+const TaskListContainer: React.FC<Props> = (props) => <TaskList {...props} />;
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    deleteTask: bindActionCreators(deleteTask, dispatch),
-    editCancel: bindActionCreators(editCancel, dispatch),
-    editSave: bindActionCreators(editSave, dispatch),
-    editTask: bindActionCreators(editTask, dispatch),
-    toggleTask: bindActionCreators(toggleTask, dispatch)
-  };
-}
+const mapStateToProps = (state: IRootState) => ({
+  currentGroup: state.currentGroup,
+  tasks: state.tasks
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListContainer);
+const mapDispatchToProps = {
+  deleteTask,
+  editCancel,
+  editSave,
+  editTask,
+  toggleTask
+};
+type InjectStateProps = ReturnType<typeof mapStateToProps>;
+type InjectDispatchProps = typeof mapDispatchToProps;
+
+export default connect<InjectStateProps, InjectDispatchProps, object>(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskListContainer);

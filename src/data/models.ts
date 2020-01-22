@@ -57,16 +57,6 @@ export interface ITaskProps {
   deleteTask: (id: number) => void;
 }
 
-export interface ITaskListProps {
-  tasks: ITask[];
-  currentGroup: string;
-  toggleTask: (id: number) => void;
-  editTask: (id: number) => void;
-  deleteTask: (id: number) => void;
-  editSave: (task: IEditTask) => void;
-  editCancel: (id: number) => void;
-}
-
 export interface IEditTaskProps {
   task: ITask;
   editSave: (task: IEditTask) => void;
