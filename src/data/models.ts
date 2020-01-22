@@ -67,13 +67,6 @@ export interface ITaskListProps {
   editCancel: (id: number) => void;
 }
 
-export interface IAddTaskProps {
-  currentGroup: string;
-  nextTaskId: number;
-  addTask: (task: INewTask) => void;
-  incTaskId: () => void;
-}
-
 export interface IEditTaskProps {
   task: ITask;
   editSave: (task: IEditTask) => void;

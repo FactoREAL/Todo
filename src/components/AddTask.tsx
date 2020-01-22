@@ -1,58 +1,63 @@
 import * as React from "react";
-import { IAddTaskProps } from "../data/models";
+import { useCallback, useState } from "react";
 
-interface IState {
-  value: string;
-}
+import { INewTask } from "../data/models";
 
-class AddTask extends React.Component<IAddTaskProps, IState> {
-  constructor(props: IAddTaskProps) {
-    super(props);
-    this.state = {
-      value: ""
-    };
-  }
+type Props = {
+  currentGroup: string;
+  nextTaskId: number;
+  addTask: (task: INewTask) => void;
+  incTaskId: () => void;
+};
 
-  private handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ value: e.currentTarget.value });
-  };
+const AddTask: React.FC<Props> = ({
+  currentGroup,
+  nextTaskId,
+  addTask,
+  incTaskId
+}) => {
+  const [task, setTask] = useState("");
 
-  private handleSubmit = () => {
-    const { currentGroup, nextTaskId, addTask, incTaskId } = this.props;
-    if (currentGroup && this.state.value) {
-      addTask({ id: nextTaskId, group: currentGroup, title: this.state.value });
+  const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    setTask(e.currentTarget.value);
+  }, []);
+
+  const handleSubmit = useCallback(() => {
+    if (currentGroup && task) {
+      addTask({ id: nextTaskId, group: currentGroup, title: task });
       incTaskId();
-      this.setState({ value: "" });
+      setTask("");
     }
-  };
+  }, []);
 
-  private handlePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      this.handleSubmit();
-    }
-  };
+  const handlePress = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    },
+    []
+  );
 
-  public render() {
-    return (
-      <div className="form-inline bg-light p-2 mx-auto row">
-        <input
-          type="text"
-          className="form-control col-10"
-          value={this.state.value}
-          onKeyPress={this.handlePress}
-          onChange={this.handleChange}
-        />
-        <div className="col-2 text-center">
-          <button
-            className="btn btn-sm btn-primary form-control"
-            onClick={this.handleSubmit}
-          >
-            Добавить
-          </button>
-        </div>
+  return (
+    <div className="form-inline bg-light p-2 mx-auto row">
+      <input
+        type="text"
+        className="form-control col-10"
+        value={task}
+        onKeyPress={handlePress}
+        onChange={handleChange}
+      />
+      <div className="col-2 text-center">
+        <button
+          className="btn btn-sm btn-primary form-control"
+          onClick={handleSubmit}
+        >
+          Добавить
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default AddTask;

@@ -1,26 +1,27 @@
 import * as React from "react";
 import { connect } from "react-redux";
+
 import AddTask from "../components/AddTask";
-import { IAddTaskProps, IRootState } from "../data/models";
-import { bindActionCreators, Dispatch } from "redux";
-import {addTask, incTaskId} from "../data/actions";
+import { IRootState } from "../data/models";
+import { addTask, incTaskId } from "../data/actions";
 
-function AddTaskContainer(props: IAddTaskProps) {
-  return <AddTask {...props} />;
-}
+type Props = InjectStateProps & InjectDispatchProps;
 
-function mapStateToProps(state: IRootState) {
-  return {
-    currentGroup: state.currentGroup,
-    nextTaskId: state.nextTaskId
-  };
-}
+const AddTaskContainer: React.FC<Props> = props => <AddTask {...props} />;
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    addTask: bindActionCreators(addTask, dispatch),
-    incTaskId: bindActionCreators(incTaskId, dispatch)
-  };
-}
+const mapStateToProps = (state: IRootState) => ({
+  currentGroup: state.currentGroup,
+  nextTaskId: state.nextTaskId
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTaskContainer);
+const mapDispatchToProps = {
+  addTask,
+  incTaskId
+};
+type InjectStateProps = ReturnType<typeof mapStateToProps>;
+type InjectDispatchProps = typeof mapDispatchToProps;
+
+export default connect<InjectStateProps, InjectDispatchProps, object>(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddTaskContainer);
