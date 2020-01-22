@@ -1,58 +1,61 @@
 import * as React from "react";
-import { IAddGroupProps } from "../data/models";
+import { useCallback, useState } from "react";
 
-interface IState {
-  value: string;
-}
+import { IGroup } from "../data/models";
 
-class AddGroup extends React.Component<IAddGroupProps, IState> {
-  constructor(props: IAddGroupProps) {
-    super(props);
-    this.state = {
-      value: ""
-    };
-  }
+type Props = {
+  nextGroupId: number;
+  onAddGroup: (group: IGroup) => void;
+  onIncGroupId: () => void;
+};
 
-  private handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ value: e.currentTarget.value });
-  };
+const AddGroup: React.FC<Props> = ({
+  nextGroupId,
+  onAddGroup,
+  onIncGroupId
+}) => {
+  const [group, setGroup] = useState("");
 
-  private handleSubmit = () => {
-    const { nextGroupId, onAddGroup, onIncGroupId } = this.props;
-    if (this.state.value) {
-      onAddGroup({ id: nextGroupId, title: this.state.value });
+  const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    setGroup(e.currentTarget.value);
+  }, []);
+
+  const handleSubmit = useCallback(() => {
+    if (group) {
+      onAddGroup({ id: nextGroupId, title: group });
       onIncGroupId();
-      this.setState({ value: "" });
+      setGroup("");
     }
-  };
+  }, []);
 
-  private handlePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      this.handleSubmit();
-    }
-  };
+  const handlePress = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    },
+    []
+  );
 
-  public render() {
-    return (
-      <div className="form-inline bg-light p-2 mx-auto row">
-        <input
-          type="text"
-          className="form-control col-8"
-          value={this.state.value}
-          onKeyPress={this.handlePress}
-          onChange={this.handleChange}
-        />
-        <div className="col-4 text-center">
-          <button
-            className="btn btn-sm btn-primary form-control"
-            onClick={this.handleSubmit}
-          >
-            Добавить
-          </button>
-        </div>
+  return (
+    <div className="form-inline bg-light p-2 mx-auto row">
+      <input
+        type="text"
+        className="form-control col-8"
+        value={group}
+        onKeyPress={handlePress}
+        onChange={handleChange}
+      />
+      <div className="col-4 text-center">
+        <button
+          className="btn btn-sm btn-primary form-control"
+          onClick={handleSubmit}
+        >
+          Добавить
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default AddGroup;

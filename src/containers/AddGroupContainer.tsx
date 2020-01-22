@@ -1,37 +1,36 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
+
 import AddGroup from "../components/AddGroup";
-import { IAddGroupProps, IRootState } from "../data/models";
+import { IRootState } from "../data/models";
 import { addGroup, incGroupId } from "../data/actions";
 
-function AddGroupContainer({
+type Props = InjectStateProps & InjectDispatchProps;
+
+const AddGroupContainer: React.FC<Props> = ({
   nextGroupId,
-  onAddGroup,
-  onIncGroupId
-}: IAddGroupProps) {
-  return (
-    <AddGroup
-      nextGroupId={nextGroupId}
-      onAddGroup={onAddGroup}
-      onIncGroupId={onIncGroupId}
-    />
-  );
-}
+  addGroup,
+  incGroupId
+}) => (
+  <AddGroup
+    nextGroupId={nextGroupId}
+    onAddGroup={addGroup}
+    onIncGroupId={incGroupId}
+  />
+);
 
-function mapStateToProps(state: IRootState) {
-  return {
-    nextGroupId: state.nextGroupId
-  };
-}
+const mapStateToProps = (state: IRootState) => ({
+  nextGroupId: state.nextGroupId
+});
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    // onAddGroup: (data: any) => dispatch(addGroup(data)),
-    // onIncGroupId: () => dispatch(incGroupId())
-    onAddGroup: bindActionCreators(addGroup, dispatch),
-    onIncGroupId: bindActionCreators(incGroupId, dispatch)
-  };
-}
+const mapDispatchToProps = {
+  addGroup,
+  incGroupId
+};
+type InjectStateProps = ReturnType<typeof mapStateToProps>;
+type InjectDispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddGroupContainer);
+export default connect<InjectStateProps, InjectDispatchProps, object>(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddGroupContainer);

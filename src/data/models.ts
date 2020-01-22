@@ -30,12 +30,6 @@ export interface IGroupProps {
 //   onSetGroup: (title: string) => void;
 // }
 
-export interface IAddGroupProps {
-  nextGroupId: number;
-  onAddGroup: (group: IGroup) => void;
-  onIncGroupId: () => void;
-}
-
 // Task
 export interface ITask {
   id: number;
